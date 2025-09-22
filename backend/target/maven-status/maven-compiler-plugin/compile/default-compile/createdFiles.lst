@@ -1,0 +1,17 @@
+com\evoting\model\User.class
+com\evoting\service\CandidateService.class
+com\evoting\service\ElectionService.class
+com\evoting\controller\VoterController.class
+com\evoting\controller\AuthController.class
+com\evoting\controller\ElectionController.class
+com\evoting\repository\CandidateRepository.class
+com\evoting\model\Election.class
+com\evoting\repository\ElectionRepository.class
+com\evoting\service\AuthService.class
+com\evoting\controller\CandidateController.class
+com\evoting\model\Candidate.class
+com\evoting\repository\VoteRepository.class
+com\evoting\model\Vote.class
+com\evoting\EvotingApplication.class
+com\evoting\repository\UserRepository.class
+com\evoting\service\VoterService.class
