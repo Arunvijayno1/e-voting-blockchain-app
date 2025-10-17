@@ -30,7 +30,24 @@ public class AuthService {
     }
 
     public User loginUser(String email, String password) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loginUser'");
+        // Find user by email and verify password
+        try {
+            java.util.Optional<User> opt = userRepository.findByEmail(email);
+            if (opt.isPresent()) {
+                User user = opt.get();
+                if (passwordEncoder.matches(password, user.getPassword())) {
+                    // Do not expose the hashed password to callers
+                    user.setPassword(null);
+                    return user;
+                } else {
+                    throw new Exception("Invalid credentials");
+                }
+            } else {
+                throw new Exception("User not found");
+            }
+        } catch (Exception e) {
+            // Re-throw to let the controller translate to an appropriate HTTP response
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 }
