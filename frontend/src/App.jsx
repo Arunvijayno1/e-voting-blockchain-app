@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import AuthModal from './components/AuthModal';
 import Chart from 'chart.js/auto';
 
 
@@ -436,71 +437,4 @@ const LiveTransactionFeed = () => {
         </div>
     );
 };
-
-
-// --- Authentication Modal ---
-
-const AuthModal = ({ role, isLogin, setIsLogin, onClose, onAuthSuccess }) => {
-    const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(`${isLogin ? 'Logging in' : 'Registering'} as ${role}...`);
-        onAuthSuccess();
-    };
-
-    return (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
-            {/* The Glassmorphism Box */}
-            <div
-                className="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-2xl shadow-2xl w-full max-w-md relative animate-scale-in text-white"
-                role="dialog"
-                aria-modal="true"
-            >
-                <button onClick={onClose} className="absolute top-4 right-4 text-gray-300 hover:text-white">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
-                <div className="text-center mb-6">
-                    <h2 className="text-2xl font-bold">{isLogin ? `${capitalize(role)} Login` : `${capitalize(role)} Registration`}</h2>
-                    <p className="text-gray-300 mt-2">{isLogin ? 'Enter your credentials to access your dashboard.' : 'Create an account to get started.'}</p>
-                </div>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-1">Email</label>
-                        <input type="email" id="email" required className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-white placeholder-gray-400" />
-                    </div>
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-1">Password</label>
-                        <input type="password" id="password" required className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-white placeholder-gray-400" />
-                    </div>
-
-                    {!isLogin && role === 'voter' && <BiometricSection />}
-
-                    <button type="submit" className="w-full bg-primary text-white font-semibold py-3 px-4 rounded-lg hover:bg-primary-hover transition-colors duration-300 shadow-lg hover:shadow-primary/50">
-                        {isLogin ? 'Login' : 'Create Account'}
-                    </button>
-                </form>
-                <p className="text-center text-sm mt-6 text-gray-300">
-                    {isLogin ? "Don't have an account?" : "Already have an account?"}
-                    <button onClick={() => setIsLogin(!isLogin)} className="font-semibold text-white hover:underline ml-1">
-                        {isLogin ? 'Register Now' : 'Login'}
-                    </button>
-                </p>
-            </div>
-        </div>
-    );
-};
-
-const BiometricSection = () => (
-    <div className="text-center p-4 bg-white/10 rounded-lg border border-white/20">
-        <p className="font-semibold text-gray-200 mb-2">Biometric Identity Verification</p>
-        <div className="w-32 h-32 bg-white/10 border border-white/20 rounded-full mx-auto flex items-center justify-center mb-3">
-            <CameraIcon />
-        </div>
-        <button type="button" className="font-semibold text-sm text-white hover:underline">
-            Launch Secure Camera
-        </button>
-        <p className="text-xs text-gray-400 mt-1">Powered by OpenCV AI Face Detection</p>
-    </div>
-);
 
